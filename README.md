@@ -16,3 +16,11 @@ chmod o+rx ./bin/main
 echo
 ./bin/main "./test/elQuijote_ch1.txt"
 ```
+
+## Completion Summary
+
+| Problem | Status | Comment
+| --- | :---: | --- |
+| Problem 1 | Done | Execute with argument `"./test/elQuijote_ch1.txt"` |
+| Problem 2 | - | |
+| Problem 3 | - | |
