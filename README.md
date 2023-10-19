@@ -4,6 +4,10 @@
 
 ---
 
+| Owner name | Student ID @ UC3M (NIA) | Main branch |
+| :---: | :---: | :---: |
+| Alonso Herreros Copete | 100493990 | `main` |
+
 ## Compilation & execution
 To compile and execute a problem's code, you may use these commands inside the ProblemN folder (not from the src folder):
 ```bash
