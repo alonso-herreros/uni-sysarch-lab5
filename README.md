@@ -22,5 +22,5 @@ echo
 | Problem | Status | Comment
 | --- | :---: | --- |
 | Problem 1 | Done | Execute with argument `"./test/elQuijote_ch1.txt"` |
-| Problem 2 | - | |
+| Problem 2 | Done | Execute with argument `./test/test.txt` |
 | Problem 3 | - | |
