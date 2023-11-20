@@ -229,6 +229,7 @@ int command_loop(FILE *output)
     char *line = mallocr(sizeof(char)*nchars);
 
     while (!feof(stdin)) {
+        alarm(10);
         char *old_line = line;
         if(getline(&line, &nchars, stdin) == -1 || line[0] == '\n')  continue;
         if (line != old_line)  ptrlist_replace(ptrs, old_line, line);
@@ -244,33 +245,35 @@ int command_loop(FILE *output)
 
 int execute_command(char *line, FILE *output)
 {
-    const char *operation = strtok(line, " ");
+    // Reading `operation`
+    const char *tok = strtok(line, " ");
+    int (* op)(int) = !strcmp(tok, "toupper") ? toupper : !strcmp(tok, "tolower")? tolower : NULL;
+    if (op == NULL)  return 1; // Invalid operation
 
-    int (* op)(int);
-    if (strcmp(operation, "toupper") == 0)  op = toupper;
-    else if (strcmp(operation, "tolower") == 0)  op = tolower;
-    else  return 1;
-
+    // Reading `numStrings`
     const char *strn = strtok(NULL, " ");
     char *end;
-    const long N = strtol(strn, &end, 10);
-    if (N<1 || end[0] != '\0')  return 1;
+    const long n = strtol(strn, &end, 10);
+    if (n<1 || end[0] != '\0')  return 2; // Invalid number
 
-    char *lineout = callocr(BUFFER_SIZE, sizeof(char));
+    // Reading strings
+    char lineout[BUFFER_SIZE] = {0};
     char *str;
     int linelen = 0;
-    for (int i=0; i < N; i++) {
-        if ((str = strtok(NULL, " ")) == 0)  return 1;
-        if (linelen > 1)  lineout[linelen++] = ' ';
-        strcpy(lineout + linelen*sizeof(char), str);
-        linelen += strlen(str);
+    for (int i=0; i < n; i++) {
+        if ((str = strtok(NULL, " ")) == 0)  return 2; // Check for n too big
+        if (linelen > 1)  lineout[linelen++] = ' '; // Add spaces between strings
+        strcpy(lineout + linelen*sizeof(char), str); // Save string
+        linelen += strlen(str); // Add line length
     }
+    if (strtok(NULL, " "))  return 2; // Check for n too small
+
+    // Apply operation
     for (int i = 0; lineout[i] != '\0'; i++)  lineout[i] = op(lineout[i]);
 
+    // Print and write to file
     printf("%s\n", lineout);
     fprintf(output, "%s\n", lineout);
-
-    freer(lineout);
 
     return 0;
 }
