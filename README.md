@@ -14,7 +14,7 @@ To compile and execute a problem's code, you may use these commands inside the P
 gcc ./src/*.c -o ./bin/main -g -Wall
 chmod o+rx ./bin/main
 echo
-./bin/main "./test/elQuijote_ch1.txt"
+./bin/main <argument>
 ```
 
 ## Completion Summary
@@ -23,4 +23,4 @@ echo
 | --- | :---: | --- |
 | Problem 1 | Done | Execute with argument `"./test/elQuijote_ch1.txt"` |
 | Problem 2 | Done | Execute with argument `./test/test.txt` |
-| Problem 3 | - | |
+| Problem 3 | Okay | Execute with argument `<filepath>` with a valid writeable file. |
