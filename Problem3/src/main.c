@@ -281,6 +281,7 @@ int execute_command(char *line, FILE *output)
 
 void terminate(int sig)
 {
+    if (sig == SIGALRM)  printf("->No user commands in 10 seconds. Exiting\n");
     printf("Terminating...\n");
     
     // Watch out, these printf statements include important function calls
